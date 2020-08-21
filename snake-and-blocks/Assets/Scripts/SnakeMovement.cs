@@ -13,7 +13,7 @@ public class SnakeMovement : MonoBehaviour
     private float dist;
     private Transform currBodyPart;
     private Transform prevBodyPart;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,10 +36,15 @@ public class SnakeMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
             currSpeed *= 2;
 
+
         bodyParts[0].Translate(bodyParts[0].forward * currSpeed * Time.smoothDeltaTime, Space.World);
+
+        bodyParts[0].Translate(bodyParts[0].up * currSpeed * Time.smoothDeltaTime, Space.World);
+
 
         if(Input.GetAxis("Horizontal") != 0)
             bodyParts[0].Rotate(Vector3.up * rotationSpeed * Time.deltaTime * Input.GetAxis("Horizontal"));
+
 
         for (int i=1; i < bodyParts.Count; i++) {
 
