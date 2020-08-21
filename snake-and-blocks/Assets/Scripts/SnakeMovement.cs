@@ -4,7 +4,7 @@ public class SnakeMovement : MonoBehaviour
 {
     public List<Transform> bodyParts = new List<Transform>();
     public float minDist = 0.25f;
-    public float rotationSpeed = 50;
+    public float rotationSpeed = 100;
     public float speed = 1;
     public int beginSize = 1;
     public GameObject bodyPrefab;
@@ -33,8 +33,6 @@ public class SnakeMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W))
             currSpeed *= 2;
-
-        bodyParts[0].Translate(bodyParts[0].forward * currSpeed * Time.smoothDeltaTime, Space.World);
 
         bodyParts[0].Translate(bodyParts[0].up * currSpeed * Time.smoothDeltaTime, Space.World);
 
