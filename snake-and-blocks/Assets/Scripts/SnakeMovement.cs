@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-
 public class SnakeMovement : MonoBehaviour
 {
     public List<Transform> bodyParts = new List<Transform>();
@@ -36,15 +34,12 @@ public class SnakeMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
             currSpeed *= 2;
 
-
         bodyParts[0].Translate(bodyParts[0].forward * currSpeed * Time.smoothDeltaTime, Space.World);
 
         bodyParts[0].Translate(bodyParts[0].up * currSpeed * Time.smoothDeltaTime, Space.World);
 
-
         if(Input.GetAxis("Horizontal") != 0)
             bodyParts[0].Rotate(Vector3.up * rotationSpeed * Time.deltaTime * Input.GetAxis("Horizontal"));
-
 
         for (int i=1; i < bodyParts.Count; i++) {
 
