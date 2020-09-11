@@ -1,17 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+
 public class SnakeMovement : MonoBehaviour
 {
     public List<Transform> bodyParts = new List<Transform>();
     public float minDist = 0.25f;
-    public float rotationSpeed = 100;
+    public float rotationSpeed = 50;
     public float speed = 1;
     public int beginSize = 1;
     public GameObject bodyPrefab;
     private float dist;
     private Transform currBodyPart;
     private Transform prevBodyPart;
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -24,17 +26,17 @@ public class SnakeMovement : MonoBehaviour
     {
         Move();
 
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
             AddBodyParts();
     }
     public void Move() {
 
         float currSpeed = speed;
 
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W))
             currSpeed *= 2;
 
-        bodyParts[0].Translate(bodyParts[0].up * currSpeed * Time.smoothDeltaTime, Space.World);
+        bodyParts[0].Translate(bodyParts[0].forward * currSpeed * Time.smoothDeltaTime, Space.World);
 
         if(Input.GetAxis("Horizontal") != 0)
             bodyParts[0].Rotate(Vector3.up * rotationSpeed * Time.deltaTime * Input.GetAxis("Horizontal"));
