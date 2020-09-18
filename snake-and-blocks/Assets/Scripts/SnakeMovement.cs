@@ -33,8 +33,8 @@ public class SnakeMovement : MonoBehaviour
 
         float currSpeed = speed;
 
-        if (Input.GetKeyDown(KeyCode.W))
-            currSpeed *= 2;
+        if (Input.GetKey(KeyCode.W))
+            currSpeed *= 3f;
 
         bodyParts[0].Translate(bodyParts[0].forward * currSpeed * Time.smoothDeltaTime, Space.World);
 

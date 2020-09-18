@@ -4,8 +4,8 @@
 
      #region Variables
      public Transform m_Target;
-     public float m_Height = 10f;
-     public float m_Distance = 20f;
+     public float m_Height = 25f;
+     public float m_Distance = 15f;
      public float m_Angle = 45f;
      #endregion
 
