@@ -1,41 +1,59 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
-   // Instantiates prefabs in a circle formation
-   public GameObject prefab;
-   public int numberOfObjects = 20;
-   public float radius = 5f;
+   public GameObject CubePrefab;
+   public float lastZValue = 0F;
+   bool gameHasEnded = false;
+   public float restartDelay = 1F;
    void Start()
    {
-       SpawnCubes(prefab, 5, 0F, 0F, 12F, 2F);
-       SpawnCubes(prefab, 10, 0F, 0F, 14F, 2F);
-       SpawnCubes(prefab, 15, 0F, 0F, 16F, 2F);
-       SpawnCubes(prefab, 20, 0F, 0F, 18F, 2F);   
-       
-    /*
-       for (int i = 0; i < numberOfObjects; i++)
+       for (int i=0; i<100; i++)
        {
-           float angle = i * Mathf.PI * 2 / numberOfObjects;
-           float x = Mathf.Cos(angle) * radius;
-           float z = Mathf.Sin(angle) * radius;
-           Vector3 pos = transform.position + new Vector3(x, -1F, z);
-           float angleDegrees = -angle*Mathf.Rad2Deg;
-           Quaternion rot = Quaternion.Euler(0, angleDegrees, 0);
-           Instantiate(prefab, pos, rot);
+           lastZValue = SpawnCubes(CubePrefab, 5, 0F, 0F, lastZValue + Random.Range(5,10), 2F);
        }
-    */
    }
-   void SpawnCubes(GameObject prefab, int numCubes, float startX, float startY, float startZ, float delta)
+   void Update()
+   {
+       CheckSize();
+   }
+   float SpawnCubes(GameObject prefab, int numCubes, float startX, float startY, float startZ, float delta)
     {
-    for (int i = 0; i < numCubes; ++i) {
-        Instantiate(
-            prefab,
-            new Vector3(startX + (float)i * delta, startY, startZ),
-            Quaternion.identity
-        );
+        GameObject myObj = null;
+        for (int i = 0; i < numCubes; ++i) 
+        {
+            myObj = 
+                    Instantiate(
+                    prefab,
+                    new Vector3(startX + (float)i * delta, startY, startZ),
+                    Quaternion.identity
+                    );
+
+            int rand = Random.Range(0,6);
+            myObj.GetComponent<Block>().Setup(rand);
         }
+
+        return myObj.transform.position.z;
+    }
+    public void EndGame()
+    {
+        if (gameHasEnded == false)
+        {
+            gameHasEnded = true;
+            Debug.Log("Game Over");
+            Invoke("Restart", restartDelay);
+        }
+    }
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void CheckSize()
+    {
+        int size = SnakeMovement.Instance.SnakeSize();
+
+        if (size == 0)
+            EndGame();
     }
 }
 

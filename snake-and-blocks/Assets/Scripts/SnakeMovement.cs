@@ -1,22 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class SnakeMovement : MonoBehaviour
 {
     public List<Transform> bodyParts = new List<Transform>();
     public float minDist = 0.25f;
-    public float rotationSpeed = 50;
+    public float rotationSpeed = 100;
     public float speed = 1;
     public int beginSize = 1;
     public GameObject bodyPrefab;
     private float dist;
     private Transform currBodyPart;
     private Transform prevBodyPart;
-    
+    public static SnakeMovement instance = null;
+
     // Start is called before the first frame update
     void Start()
     {
+        EnableHeadCollider();
         for (int i=0; i < beginSize -1; i++) {
             AddBodyParts();
         }
@@ -29,6 +30,24 @@ public class SnakeMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
             AddBodyParts();
     }
+    public static SnakeMovement Instance
+     {
+         get
+         { 
+             return instance; 
+         }
+     }
+     private void Awake()
+     {
+         // if the singleton hasn't been initialized yet
+         if (instance != null && instance != this) 
+         {
+             Destroy(this.gameObject);
+         }
+ 
+         instance = this;
+         //DontDestroyOnLoad(this.gameObject);
+     }
     public void Move() {
 
         float currSpeed = speed;
@@ -68,5 +87,19 @@ public class SnakeMovement : MonoBehaviour
         newPart.SetParent(transform);
 
         bodyParts.Add(newPart);
+    }
+    public int SnakeSize()
+    {
+        return bodyParts.Count;
+    }
+    public void EnableHeadCollider()
+    {
+        bodyParts[0].GetComponent<Collider>().enabled = true;
+    }
+    public void OnBlockCollided()
+    {
+        Destroy(bodyParts[0].gameObject);
+        bodyParts.RemoveAt(0);
+        EnableHeadCollider();
     }
 }

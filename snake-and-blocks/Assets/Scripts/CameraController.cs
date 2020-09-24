@@ -14,13 +14,16 @@
     {
         HandleCamera();
     }
-
     private void Update()
     {
         HandleCamera();
     }
+    private void LateUpdate()
+    {
+        m_Target = SnakeMovement.Instance.bodyParts[0];
+    }
     #endregion
-
+    
     #region Helper Methods
     protected virtual void HandleCamera()
     {
@@ -43,7 +46,7 @@
         Vector3 finalPosition = flatTargetPosition + rotatedVector;
         Debug.DrawLine(m_Target.position, finalPosition, Color.blue);
 
-        transform.position = finalPosition;
+        transform.position = Vector3.Lerp(transform.position, finalPosition, 0.125F);
         transform.LookAt(m_Target);
     }
     #endregion
