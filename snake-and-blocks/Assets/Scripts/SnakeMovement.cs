@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SnakeMovement : MonoBehaviour
 {
+    #region Variables
     public List<Transform> bodyParts = new List<Transform>();
     public float minDist = 0.25f;
     public float rotationSpeed = 100;
@@ -14,6 +16,9 @@ public class SnakeMovement : MonoBehaviour
     private Transform prevBodyPart;
     public static SnakeMovement instance = null;
 
+    #endregion
+
+    #region Main Methods
     // Start is called before the first frame update
     void Start()
     {
@@ -48,7 +53,14 @@ public class SnakeMovement : MonoBehaviour
          instance = this;
          //DontDestroyOnLoad(this.gameObject);
      }
+
+    #endregion
+
+    #region Helper Methods
     public void Move() {
+
+        if (bodyParts.Count == 0)
+            return;
 
         float currSpeed = speed;
 
@@ -100,6 +112,12 @@ public class SnakeMovement : MonoBehaviour
     {
         Destroy(bodyParts[0].gameObject);
         bodyParts.RemoveAt(0);
+        if (bodyParts.Count == 0)
+        {
+            FindObjectOfType<GameManager>().EndGame();
+            return; 
+        }
         EnableHeadCollider();
     }
+    #endregion
 }

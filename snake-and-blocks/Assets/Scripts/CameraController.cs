@@ -20,18 +20,20 @@
     }
     private void LateUpdate()
     {
-        m_Target = SnakeMovement.Instance.bodyParts[0];
+        if (SnakeMovement.Instance.bodyParts.Count == 0)
+            return;
+
+        m_Target = SnakeMovement.Instance.bodyParts[0];   
     }
+
     #endregion
     
     #region Helper Methods
     protected virtual void HandleCamera()
     {
-        if (!m_Target)
-        {
+        if (m_Target == null)
             return;
-        }
-
+            
         //Build world position vector
         Vector3 worldPosition = (Vector3.forward * -m_Distance) + (Vector3.up * m_Height);
         Debug.DrawLine(m_Target.position, worldPosition, Color.red);
@@ -47,7 +49,7 @@
         Debug.DrawLine(m_Target.position, finalPosition, Color.blue);
 
         transform.position = Vector3.Lerp(transform.position, finalPosition, 0.125F);
-        transform.LookAt(m_Target);
+        //transform.LookAt(m_Target);
     }
     #endregion
 }

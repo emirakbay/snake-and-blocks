@@ -2,8 +2,13 @@
 using UnityEngine;
 public class Block : MonoBehaviour
 {
+    #region Variables
     public GameObject myObj;
     public int number;
+
+    #endregion
+
+    #region Main Methods
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +19,9 @@ public class Block : MonoBehaviour
     {
         
     }
+    #endregion
+
+    #region Helper Methods
     public void Setup(int n)
     {
         number = n;
@@ -32,4 +40,5 @@ public class Block : MonoBehaviour
             
         Setup(number);
     }
+    #endregion
 }
