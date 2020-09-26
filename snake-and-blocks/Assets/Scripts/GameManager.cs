@@ -2,21 +2,32 @@
 using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
+   #region Variables
    public GameObject CubePrefab;
    public float lastZValue = 0F;
    bool gameHasEnded = false;
    public float restartDelay = 1F;
+
+   public Vector3 vector;
+
+   #endregion
+
+   #region Main Methods
    void Start()
    {
        for (int i=0; i<100; i++)
        {
-           lastZValue = SpawnCubes(CubePrefab, 5, 0F, 0F, lastZValue + Random.Range(5,10), 2F);
+           lastZValue = SpawnCubes(CubePrefab, 5, 0F, 0F, lastZValue + Random.Range(5,20), 2F);
        }
    }
    void Update()
    {
        CheckSize();
    }
+
+   #endregion
+
+   #region Helper Methods
    float SpawnCubes(GameObject prefab, int numCubes, float startX, float startY, float startZ, float delta)
     {
         GameObject myObj = null;
@@ -55,5 +66,6 @@ public class GameManager : MonoBehaviour
         if (size == 0)
             EndGame();
     }
+    #endregion
 }
 

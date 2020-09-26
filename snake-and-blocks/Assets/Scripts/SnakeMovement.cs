@@ -7,7 +7,7 @@ public class SnakeMovement : MonoBehaviour
     #region Variables
     public List<Transform> bodyParts = new List<Transform>();
     public float minDist = 0.25f;
-    public float rotationSpeed = 100;
+    public float rotationSpeed = 150;
     public float speed = 1;
     public int beginSize = 1;
     public GameObject bodyPrefab;
@@ -30,11 +30,25 @@ public class SnakeMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         Move();
+
+        //Debug.Log("max_X == >" + Camera.main.ScreenToWorldPoint(new Vector3(0,0,Camera.main.depth)));
+        //Debug.Log("min_X == >" + Camera.main.ScreenToWorldPoint(new Vector3(Screen.width,0,Camera.main.depth)));
 
         if (Input.GetKeyDown(KeyCode.Q))
             AddBodyParts();
     }
+    // void LateUpdate()
+    // {
+    //     if(bodyParts.Count == 0)
+    //         return;
+    //     screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
+    //     Vector3 viewPos = bodyParts[0].position;
+    //     viewPos.x = Mathf.Clamp(viewPos.x, screenBounds.x, screenBounds.x * -1);
+    //     bodyParts[0].position = viewPos;
+        
+    // }
     public static SnakeMovement Instance
      {
          get
@@ -65,9 +79,9 @@ public class SnakeMovement : MonoBehaviour
         float currSpeed = speed;
 
         if (Input.GetKey(KeyCode.W))
-            currSpeed *= 3f;
+            currSpeed *= 4f;
 
-        bodyParts[0].Translate(bodyParts[0].forward * currSpeed * Time.smoothDeltaTime, Space.World);
+        bodyParts[0].Translate(bodyParts[0].forward * currSpeed * Time.deltaTime, Space.World);
 
         if(Input.GetAxis("Horizontal") != 0)
             bodyParts[0].Rotate(Vector3.up * rotationSpeed * Time.deltaTime * Input.GetAxis("Horizontal"));
@@ -106,6 +120,11 @@ public class SnakeMovement : MonoBehaviour
     }
     public void EnableHeadCollider()
     {
+        if (bodyParts.Count == 0)
+        {
+            FindObjectOfType<GameManager>().EndGame();
+            return; 
+        }
         bodyParts[0].GetComponent<Collider>().enabled = true;
     }
     public void OnBlockCollided()
@@ -119,5 +138,20 @@ public class SnakeMovement : MonoBehaviour
         }
         EnableHeadCollider();
     }
+    // public void BorderController()
+    // {
+    //     Vector3 limit = Camera.main.ScreenToWorldPoint(new Vector3(0,0,Camera.main.nearClipPlane));
+    //     float min_X = limit.x;
+    //     float max_X = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width,0,Camera.main.nearClipPlane)).x;
+
+    //     var new_X = Mathf.Clamp(bodyParts[0].position.x, max_X, min_X);
+
+    //     bodyParts[0].position = new Vector3(new_X, bodyParts[0].position.y, bodyParts[0].position.z);
+    // }
+    // private void OnDrawGizmosSelected()
+    // {
+    //     Gizmos.DrawSphere(Camera.main.ScreenToWorldPoint(new Vector3(0,0,Camera.main.nearClipPlane)), 2);
+    //     Gizmos.DrawSphere(Camera.main.ScreenToWorldPoint(new Vector3(Screen.width,0,Camera.main.nearClipPlane)), 2);
+    // }
     #endregion
 }
