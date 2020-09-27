@@ -15,6 +15,7 @@ public class SnakeMovement : MonoBehaviour
     private Transform currBodyPart;
     private Transform prevBodyPart;
     public static SnakeMovement instance = null;
+    private float xMin = -1.0f, xMax = 9.0f;
 
     #endregion
 
@@ -32,6 +33,7 @@ public class SnakeMovement : MonoBehaviour
     {
         
         Move();
+        ClampMovement();
 
         //Debug.Log("max_X == >" + Camera.main.ScreenToWorldPoint(new Vector3(0,0,Camera.main.depth)));
         //Debug.Log("min_X == >" + Camera.main.ScreenToWorldPoint(new Vector3(Screen.width,0,Camera.main.depth)));
@@ -153,5 +155,20 @@ public class SnakeMovement : MonoBehaviour
     //     Gizmos.DrawSphere(Camera.main.ScreenToWorldPoint(new Vector3(0,0,Camera.main.nearClipPlane)), 2);
     //     Gizmos.DrawSphere(Camera.main.ScreenToWorldPoint(new Vector3(Screen.width,0,Camera.main.nearClipPlane)), 2);
     // }
+    public void ClampMovement()
+    {
+        if (SnakeMovement.Instance.bodyParts.Count == 0)
+            return;
+            
+        Vector3 position = SnakeMovement.Instance.bodyParts[0].transform.position;
+        float x_Pos = position.x;
+        float xPos = Mathf.Clamp(x_Pos, xMin, xMax);
+
+        if (SnakeMovement.Instance.bodyParts[0].position.x < -1.0f)
+            SnakeMovement.Instance.bodyParts[0].transform.position = new Vector3(xPos, SnakeMovement.Instance.bodyParts[0].position.y, SnakeMovement.Instance.bodyParts[0].position.z);
+ 
+        if (SnakeMovement.Instance.bodyParts[0].position.x > 9.0f)
+            SnakeMovement.Instance.bodyParts[0].transform.position = new Vector3(xPos, SnakeMovement.Instance.bodyParts[0].position.y, SnakeMovement.Instance.bodyParts[0].position.z); 
+    }
     #endregion
 }
