@@ -133,8 +133,6 @@ GameObject:
   - component: {fileID: 74452217}
   - component: {fileID: 74452216}
   - component: {fileID: 74452215}
-  - component: {fileID: 74452219}
-  - component: {fileID: 74452220}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -238,38 +236,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 74452214}
   m_LocalRotation: {x: 0.42261833, y: 0.000000010084855, z: -0.000000004702646, w: 0.90630776}
-  m_LocalPosition: {x: 3.7, y: 20.5, z: -10}
+  m_LocalPosition: {x: 4.5, y: 20.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &74452219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 74452214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec03a9ef5ebbe2c4c83650a07a5fc6d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 1606106553}
---- !u!114 &74452220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 74452214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b6e04a86b731e64eabfdfc88f1957de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camera: {fileID: 74452217}
 --- !u!1 &298409197
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,6 +254,7 @@ GameObject:
   - component: {fileID: 298409198}
   - component: {fileID: 298409200}
   - component: {fileID: 298409201}
+  - component: {fileID: 298409202}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -332,7 +305,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 298409197}
   m_LocalRotation: {x: 0.42261833, y: 0.000000010084855, z: -0.000000004702646, w: 0.90630776}
-  m_LocalPosition: {x: 3.7, y: 20.5, z: -10}
+  m_LocalPosition: {x: 4.5, y: 20.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1940966849}
@@ -370,6 +343,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   virtualCamera: {fileID: 298409198}
+--- !u!114 &298409202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298409197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1623438113}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_XPosition: 4.5
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -573,6 +559,20 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2824208522743841288}
   m_PrefabAsset: {fileID: 0}
+--- !u!115 &1623438113
+MonoScript:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  serializedVersion: 5
+  m_Script: 
+  m_DefaultReferences: {}
+  m_Icon: {fileID: 0}
+  m_ExecutionOrder: 0
+  m_ClassName: CameraController/LockCameraX
+  m_Namespace: 
 --- !u!1 &1861426966
 GameObject:
   m_ObjectHideFlags: 0

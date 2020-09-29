@@ -4,16 +4,36 @@ public class CameraController : MonoBehaviour
 {
     public CinemachineVirtualCamera virtualCamera;
 
+    public class LockCameraX : CinemachineExtension
+    {
+    [Tooltip("Lock the camera's X position to this value")]
+    public float m_XPosition = 10;
+ 
+    protected override void PostPipelineStageCallback(
+        CinemachineVirtualCameraBase vcam,
+        CinemachineCore.Stage stage, ref CameraState state, float deltaTime)
+    {
+        if (stage == CinemachineCore.Stage.Body)
+        {
+            var pos = state.RawPosition;
+            pos.x = m_XPosition;
+            state.RawPosition = pos;
+        }
+    }
+}
+
     private void Update()
     {
         if (SnakeMovement.Instance.bodyParts.Count == 0)
             return;
 
         virtualCamera.m_Follow = SnakeMovement.Instance.bodyParts[0];
-        virtualCamera.m_LookAt = SnakeMovement.Instance.bodyParts[0];
+        virtualCamera.m_LookAt = SnakeMovement.Instance.bodyParts[0]; 
 
     }
 }
+
+
 
 //  using UnityEngine;
 //  public class CameraController : MonoBehaviour
